@@ -28,6 +28,7 @@
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <spring-boot.version>2.3.4.RELEASE</spring-boot.version>
         <app-configuration-data.version>0.0.1-SNAPSHOT</app-configuration-data.version>
+        <avro.version>1.10.0</avro.version>
     </properties>
 
     <dependencyManagement>
@@ -41,6 +42,11 @@
                 <groupId>com.example.app.conf.data</groupId>
                 <artifactId>app-configuration-data</artifactId>
                 <version>${app-configuration-data.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.avro</groupId>
+                <artifactId>avro</artifactId>
+                <version>${avro.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
