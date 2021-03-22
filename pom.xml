@@ -13,6 +13,10 @@
     <modules>
         <module>twitter-to-kafka-service</module>
         <module>app-configuration-data</module>
+        <module>common-config</module>
+        <module>kafka/kafka-admin</module>
+        <module>kafka/kafka-model</module>
+        <module>kafka/kafka-producer</module>
     </modules>
 
     <groupId>com.example</groupId>
@@ -27,9 +31,26 @@
         <app-config-data.version>0.0.1-SNAPSHOT</app-config-data.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <spring-boot.version>2.3.4.RELEASE</spring-boot.version>
-        <app-configuration-data.version>0.0.1-SNAPSHOT</app-configuration-data.version>
         <avro.version>1.10.0</avro.version>
+        <spring-kafka.version>2.6.2</spring-kafka.version>
+        <app-configuration-data.version>0.0.1-SNAPSHOT</app-configuration-data.version>
+        <common-config.version>0.0.1-SNAPSHOT</common-config.version>
+        <spring-retry.version>1.3.1</spring-retry.version>
+        <spring-boot-aop.version>2.4.3</spring-boot-aop.version>
+        <webflux.version>2.4.3</webflux.version>
+        <kafka-avro-serializer.version>5.5.1</kafka-avro-serializer.version>
+
+        <kafka-admin.version>0.0.1-SNAPSHOT</kafka-admin.version>
+        <kafka-producer.version>0.0.1-SNAPSHOT</kafka-producer.version>
+        <kafka-model.version>0.0.1-SNAPSHOT</kafka-model.version>
     </properties>
+
+    <repositories>
+        <repository>
+            <id>confluent</id>
+            <url>https://packages.confluent.io/maven/</url>
+        </repository>
+    </repositories>
 
     <dependencyManagement>
         <dependencies>
@@ -39,14 +60,70 @@
                 <version>${twitter4j-stream.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.apache.avro</groupId>
+                <artifactId>avro</artifactId>
+                <version>${avro.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.kafka</groupId>
+                <artifactId>spring-kafka</artifactId>
+                <version>${spring-kafka.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.example.app.conf.data</groupId>
                 <artifactId>app-configuration-data</artifactId>
                 <version>${app-configuration-data.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.apache.avro</groupId>
-                <artifactId>avro</artifactId>
-                <version>${avro.version}</version>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-webflux</artifactId>
+                <version>${webflux.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.confluent</groupId>
+                <artifactId>kafka-avro-serializer</artifactId>
+                <version>${kafka-avro-serializer.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-log4j12</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>log4j</groupId>
+                        <artifactId>log4j</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>io.swagger</groupId>
+                        <artifactId>swagger-annotations</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>io.swagger</groupId>
+                        <artifactId>swagger-core</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+
+
+            <dependency>
+                <groupId>com.example</groupId>
+                <artifactId>kafka-model</artifactId>
+                <version>${kafka-model.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.example</groupId>
+                <artifactId>kafka-admin</artifactId>
+                <version>${kafka-admin.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.example</groupId>
+                <artifactId>kafka-producer</artifactId>
+                <version>${kafka-producer.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.example</groupId>
+                <artifactId>common-config</artifactId>
+                <version>${common-config.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
