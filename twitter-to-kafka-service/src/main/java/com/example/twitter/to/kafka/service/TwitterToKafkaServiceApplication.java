@@ -5,13 +5,17 @@ import com.example.twitter.to.kafka.service.runner.StreamRunner;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.retry.RetryCallback;
 import org.springframework.retry.support.RetryTemplate;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
 @Slf4j
 @SpringBootApplication
 @AllArgsConstructor
@@ -32,6 +36,5 @@ public class TwitterToKafkaServiceApplication implements CommandLineRunner {
         streamInitializer.init();
         streamRunner.start();
     }
-
 
 }
