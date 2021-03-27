@@ -18,6 +18,7 @@
         <module>kafka/kafka-model</module>
         <module>kafka/kafka-producer</module>
         <module>kafka/kafka-consumer</module>
+        <module>kafka-to-elastic-service</module>
         <module>config-server</module>
     </modules>
 
@@ -44,6 +45,7 @@
 
         <kafka-admin.version>0.0.1-SNAPSHOT</kafka-admin.version>
         <kafka-producer.version>0.0.1-SNAPSHOT</kafka-producer.version>
+        <kafka-consumer.version>0.0.1-SNAPSHOT</kafka-consumer.version>
         <kafka-model.version>0.0.1-SNAPSHOT</kafka-model.version>
 
         <spring-cloud.version>3.0.3</spring-cloud.version>
@@ -155,6 +157,12 @@
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-starter-config</artifactId>
                 <version>${spring-cloud.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.example</groupId>
+                <artifactId>kafka-consumer</artifactId>
+                <version>${kafka-consumer.version}</version>
             </dependency>
 
         </dependencies>
