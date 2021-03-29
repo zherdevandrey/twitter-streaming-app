@@ -1,13 +1,13 @@
-version: '3.7'
+version: '2.2'
 services:
-  elastic-1:
-    image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION:-latest}
-    hostname: elastic-1
+  es01:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.12.0
+    container_name: es01
     environment:
-      - node.name=elastic-1
-      - cluster.name=es-twitter-cluster
-      - discovery.seed_hosts=elastic-2,elastic-3
-      - cluster.initial_master_nodes=elastic-1,elastic-2,elastic-3
+      - node.name=es01
+      - cluster.name=es-docker-cluster
+      - discovery.seed_hosts=es02,es03
+      - cluster.initial_master_nodes=es01,es02,es03
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     ulimits:
@@ -19,14 +19,15 @@ services:
     ports:
       - 9200:9200
     networks:
-      - ${GLOBAL_NETWORK:-elastic}
-  elastic-2:
-    image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION}
+      - elastic
+  es02:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.12.0
+    container_name: es02
     environment:
-      - node.name=elastic-2
-      - cluster.name=es-twitter-cluster
-      - discovery.seed_hosts=elastic-1,elastic-3
-      - cluster.initial_master_nodes=elastic-1,elastic-2,elastic-3
+      - node.name=es02
+      - cluster.name=es-docker-cluster
+      - discovery.seed_hosts=es01,es03
+      - cluster.initial_master_nodes=es01,es02,es03
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     ulimits:
@@ -36,14 +37,15 @@ services:
     volumes:
       - data02:/usr/share/elasticsearch/data
     networks:
-      - ${GLOBAL_NETWORK:-elastic}
-  elastic-3:
-    image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION}
+      - elastic
+  es03:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.12.0
+    container_name: es03
     environment:
-      - node.name=elastic-3
-      - cluster.name=es-twitter-cluster
-      - discovery.seed_hosts=elastic-1,elastic-2
-      - cluster.initial_master_nodes=elastic-1,elastic-2,elastic-3
+      - node.name=es03
+      - cluster.name=es-docker-cluster
+      - discovery.seed_hosts=es01,es02
+      - cluster.initial_master_nodes=es01,es02,es03
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     ulimits:
@@ -53,7 +55,7 @@ services:
     volumes:
       - data03:/usr/share/elasticsearch/data
     networks:
-      - ${GLOBAL_NETWORK:-elastic}
+      - elastic
 
 volumes:
   data01:
@@ -62,3 +64,7 @@ volumes:
     driver: local
   data03:
     driver: local
+
+networks:
+  elastic:
+    driver: bridge

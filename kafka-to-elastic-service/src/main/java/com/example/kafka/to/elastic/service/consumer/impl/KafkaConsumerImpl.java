@@ -2,8 +2,12 @@ package com.example.kafka.to.elastic.service.consumer.impl;
 
 import com.example.app.conf.data.KafkaConfigData;
 import com.example.app.conf.data.KafkaConsumerConfigData;
+import com.example.elastic.index.client.service.ElasticIndexClient;
+import com.example.elastic.index.client.service.TwitterElasticRepositoryIndexClient;
+import com.example.elastic.model.impl.TwitterIndexModel;
 import com.example.kafka.admin.client.KafkaAdminClient;
 import com.example.kafka.to.elastic.service.consumer.KafkaConsumer;
+import com.example.kafka.to.elastic.service.transformer.AvroToElasticModelTransformer;
 import example.kafka.model.TwitterAvroModel;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +31,8 @@ public class KafkaConsumerImpl implements KafkaConsumer<Long, TwitterAvroModel> 
     private KafkaAdminClient kafkaAdminClient;
     private KafkaConsumerConfigData kafkaConsumerConfigData;
     private KafkaConfigData kafkaConfigData;
+    private ElasticIndexClient twitterElasticClient;
+    private AvroToElasticModelTransformer transformer;
 
     @EventListener
     public void onStartUp(ApplicationStartedEvent event){
@@ -35,16 +41,13 @@ public class KafkaConsumerImpl implements KafkaConsumer<Long, TwitterAvroModel> 
         kafkaListenerEndpointRegistry.getListenerContainer("twitterTopicListener").start();
     }
 
-
-
     @KafkaListener(id = "twitterTopicListener", topics = "${kafka-config.topic-name}")
     public void receive(@Payload List<TwitterAvroModel> messages,
                         @Header(KafkaHeaders.RECEIVED_MESSAGE_KEY) List<Integer> keys,
                         @Header(KafkaHeaders.RECEIVED_PARTITION_ID) List<Integer> partitions,
                         @Header(KafkaHeaders.OFFSET) List<Long> offsets) {
 
-        log.debug("test");
-
+        List<TwitterIndexModel> elasticModels = transformer.getElasticModels(messages);
+        twitterElasticClient.save(elasticModels);
     }
-
 }

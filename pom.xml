@@ -20,6 +20,11 @@
         <module>kafka/kafka-consumer</module>
         <module>kafka-to-elastic-service</module>
         <module>config-server</module>
+
+        <module>elastic/elastic-config</module>
+        <module>elastic/elastic-model</module>
+        <module>elastic/elastic-index-client</module>
+
     </modules>
 
     <groupId>com.example</groupId>
@@ -50,6 +55,11 @@
 
         <spring-cloud.version>3.0.3</spring-cloud.version>
         <spring-cloud-dependencies.version>2020.0.0</spring-cloud-dependencies.version>
+
+        <elastic-config.version>0.0.1-SNAPSHOT</elastic-config.version>
+        <elastic-model.version>0.0.1-SNAPSHOT</elastic-model.version>
+        <elastic-index-client.version>0.0.1-SNAPSHOT</elastic-index-client.version>
+        <elastic.version>7.9.1</elastic.version>
     </properties>
 
     <repositories>
@@ -75,6 +85,11 @@
                 <groupId>org.springframework.kafka</groupId>
                 <artifactId>spring-kafka</artifactId>
                 <version>${spring-kafka.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+                <version>${spring-boot.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.example.app.conf.data</groupId>
@@ -108,6 +123,17 @@
                         <artifactId>swagger-core</artifactId>
                     </exclusion>
                 </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.elasticsearch</groupId>
+                <artifactId>elasticsearch</artifactId>
+                <version>${elastic.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.elasticsearch.client</groupId>
+                <artifactId>elasticsearch-rest-high-level-client</artifactId>
+                <version>${elastic.version}</version>
             </dependency>
 
 
@@ -163,6 +189,24 @@
                 <groupId>com.example</groupId>
                 <artifactId>kafka-consumer</artifactId>
                 <version>${kafka-consumer.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.example</groupId>
+                <artifactId>elastic-config</artifactId>
+                <version>${elastic-config.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.example</groupId>
+                <artifactId>elastic-model</artifactId>
+                <version>${elastic-model.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.example</groupId>
+                <artifactId>elastic-index-client</artifactId>
+                <version>${elastic-index-client.version}</version>
             </dependency>
 
         </dependencies>
