@@ -25,6 +25,7 @@
         <module>elastic/elastic-model</module>
         <module>elastic/elastic-index-client</module>
         <module>elastic/elastic-query-client</module>
+        <module>elastic-query-web-client</module>
     </modules>
 
     <groupId>com.example</groupId>
@@ -60,6 +61,7 @@
         <elastic-model.version>0.0.1-SNAPSHOT</elastic-model.version>
         <elastic-index-client.version>0.0.1-SNAPSHOT</elastic-index-client.version>
         <elastic-query-client.version>0.0.1-SNAPSHOT</elastic-query-client.version>
+        <elastic-query-web-client.version>0.0.1-SNAPSHOT</elastic-query-web-client.version>
     </properties>
 
     <repositories>
@@ -216,6 +218,12 @@
                 <groupId>com.example</groupId>
                 <artifactId>elastic-index-client</artifactId>
                 <version>${elastic-index-client.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.example</groupId>
+                <artifactId>elastic-query-web-client</artifactId>
+                <version>${elastic-query-web-client.version}</version>
             </dependency>
 
         </dependencies>
