@@ -1,0 +1,11 @@
+version: '2.2'
+services:
+  config-server:
+    image: ${GROUP_ID}/config.server:${SERVICE_VERSION:-latest}
+    ports:
+      - "5007:5007"
+      - "8888:8888"
+#    volumes:
+#      - "./docker-logs:/workspace/config-server/logs"
+    networks:
+      - ${GLOBAL_NETWORK:-services}

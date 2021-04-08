@@ -26,7 +26,9 @@ public class TwitterToKafkaServiceApplication implements CommandLineRunner {
     private RetryTemplate retryTemplate;
     private StreamInitializer streamInitializer;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
+        Thread.sleep(20000);
+        log.debug("TWITTER-TO-KAFKA STARTING");
         SpringApplication.run(TwitterToKafkaServiceApplication.class, args);
     }
 

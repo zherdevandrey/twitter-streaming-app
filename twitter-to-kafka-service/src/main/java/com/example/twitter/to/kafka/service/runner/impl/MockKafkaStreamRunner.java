@@ -77,6 +77,7 @@ public class MockKafkaStreamRunner implements StreamRunner {
     }
 
     private void simulateTwitterStream(String[] keywords, int minTweetLength, int maxTweetLength, long sleepTimeMs) {
+        log.info("SIMULATION PROCESS STARTED");
         Executors.newSingleThreadExecutor().submit(() -> {
             try {
                 while (true) {
@@ -93,6 +94,7 @@ public class MockKafkaStreamRunner implements StreamRunner {
 
     private void sleep(long sleepTimeMs) {
         try {
+            log.info("SLEEPING FOR {} MS", sleepTimeMs);
             Thread.sleep(sleepTimeMs);
         } catch (InterruptedException e) {
             throw new TwitterToKafkaServiceException("Error while sleeping for waiting new status to create!!");

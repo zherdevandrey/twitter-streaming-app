@@ -1,0 +1,21 @@
+server:
+  port: 8888
+
+logging:
+  level:
+    ROOT: INFO
+    org.spring.framework.cloud.config: DEBUG
+
+spring:
+  application:
+    name: configserver
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/zherdevandrey/twitter-streaming-app-config.git
+          default-label: main
+          username: mr.zherdev1992@gmail.com
+          password: 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
+          clone-on-start: true
+    fail-fast: true
